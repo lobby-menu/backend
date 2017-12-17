@@ -1,0 +1,20 @@
+logs
+project/project
+project/target
+target
+tmp
+.history
+/*.iml
+/out
+
+# play?
+/RUNNING_PID
+
+# intellij
+/.idea
+/.idea_modules
+
+# eclipse
+/.settings
+/.classpath
+/.project
