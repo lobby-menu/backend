@@ -19,8 +19,11 @@ class OrderController @Inject()(
   override lazy val parse: PlayBodyParsers = cc.parsers
   private val orderCollection = db[JSONCollection]("orders")
 
-  def list = Action.async{
-    val cursor = orderCollection.find(Json.obj()).cursor[Order]()
+  def list(done: Option[Boolean], table: Option[Int]) = Action.async{
+    val query =
+      done.map(d => Json.obj("done" -> d)).getOrElse(Json.obj()) ++
+        table.map(table => Json.obj("table" -> table)).getOrElse(Json.obj())
+    val cursor = orderCollection.find(query).cursor[Order]()
 
     cursor.collect[List]().map{ list =>
       Ok(Json.stringify(

@@ -5,4 +5,6 @@ case class Order(
   table: Int,
   bioIdentity: String,
   orders: Seq[SingleBuy],
-  creation_date: Long, done: Boolean) {}
+  creation_date: Long,
+  done: Boolean,
+  message: Option[String]) {}

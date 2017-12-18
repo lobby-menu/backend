@@ -54,8 +54,9 @@ object JsonFormats {
         val creation_date = (obj \ "creation_date").as[Long]
         val orders = (obj \ "orders").as[Seq[SingleBuy]]
         val done = (obj \ "done").as[Boolean]
+        val message = (obj \ "message").asOpt[String]
 
-        JsSuccess(Order(id, table, bioIdentity, orders, creation_date, done))
+        JsSuccess(Order(id, table, bioIdentity, orders, creation_date, done, message))
       } catch {
         case cause : Throwable => JsError(cause.getMessage)
       }
@@ -75,12 +76,15 @@ object JsonFormats {
     override def writes(order: Order): JsObject =
       order.id
         .map{ id => Json.obj("id" -> id)}
-        .getOrElse(Json.obj()) ++ Json.obj(
+        .getOrElse(Json.obj()) ++
+        order.message
+          .map(message => Json.obj("message" -> message))
+          .getOrElse(Json.obj()) ++ Json.obj(
         "table" -> order.table,
         "bio_identity" -> order.bioIdentity,
         "creation_date" -> order.creation_date,
         "orders" -> Json.toJson(order.orders),
-        "done" -> order.done
+        "done" -> order.done,
       )
   }
 
