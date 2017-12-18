@@ -7,6 +7,7 @@ GET     /product/list  controllers.ProductController.list(category: Option[Strin
 
 GET /order/list controllers.OrderController.list(done: Option[Boolean], table: Option[Int], bio: Option[String])
 POST /order/submit controllers.OrderController.submit()
+POST /order/done    controllers.OrderController.done()
 
 GET /   controllers.ViewController.index
 GET /details    controllers.ViewController.details(table: Int)

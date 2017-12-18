@@ -33,6 +33,26 @@ class OrderController @Inject()(
     }
   }
 
+  def done = Action.async{ implicit request =>
+    val result = request.body.asJson.map(result => Json.fromJson[List[String]](result))
+
+    if(result.isEmpty) Future{ Ok(Json.stringify(Json.obj("ok" -> false, "reason" -> "Not a valid list of orders."))) }
+    else
+      result.get match {
+        case JsSuccess(list, _) => {
+          orderCollection
+            .update(
+              Json.obj("_id" -> Json.obj("$in" -> Json.toJson(list.map(id => Json.obj("$oid" -> id))))),
+              Json.obj("$set" -> Json.obj("done" -> true))
+            ).map(result => {
+            Ok(Json.stringify(Json.obj("ok" -> true)))
+          })
+        }
+        case _ => Future { Ok(Json.stringify(Json.obj("ok" -> false, "reason" -> "Not a valid list of orders."))) }
+      }
+
+  }
+
   def submit = Action.async{ implicit request =>
     val result = request.body.asJson.map(OrderReads.reads)
 
