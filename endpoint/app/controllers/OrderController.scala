@@ -43,7 +43,10 @@ class OrderController @Inject()(
           orderCollection
             .update(
               Json.obj("_id" -> Json.obj("$in" -> Json.toJson(list.map(id => Json.obj("$oid" -> id))))),
-              Json.obj("$set" -> Json.obj("done" -> true))
+              Json.obj("$set" -> Json.obj("done" -> true)),
+              db.connection.options.writeConcern,
+              false,
+              true
             ).map(result => {
             Ok(Json.stringify(Json.obj("ok" -> true)))
           })

@@ -130,10 +130,31 @@ function parseTime(dateStr){
   return new Date(dateStr).getTime();
 }
 
+function createClearOrders(order_ids){
+  return function clearOrders(){
+    fetch('/order/done', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(order_ids)
+    })
+      .then(({ ok }) => ok ? Promise.resolve() : Promise.reject())
+      .then(() => {
+        alert("Bu masa için tüm siparişler tamamlandı olarak işaretlendi.");
+        location.reload();
+      })
+      .catch(() => alert("Masa için sipariş tamamlama işlemi yapılamadı."))
+
+  }
+}
+
 function init(){
   const table = parseInt(getParameterByName('table'));
   const tableElement = document.querySelector('#order_table');
   const clientElement = document.querySelector('.clients');
+  const clear_button = document.querySelector('#clear_orders');
 
   Promise.all([
     fetchOrders(table),
@@ -141,6 +162,7 @@ function init(){
   ]).then(([ orders, products ]) => {
     const mergedItems = groupByAndMergeItems(products, orders);
     mergedItems.map(createLeftRow).forEach(elem => tableElement.append(elem));
+    clear_button.addEventListener('click', createClearOrders(orders.map(o => o.id)));
 
     const people = orders.reduce((arr, curr) => {
       const item = curr['bio_identity'];
