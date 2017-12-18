@@ -5,7 +5,7 @@
 GET     /category/list    controllers.CategoryController.list
 GET     /product/list  controllers.ProductController.list(category: Option[String])
 
-GET /order/list controllers.OrderController.list(done: Option[Boolean], table: Option[Int])
+GET /order/list controllers.OrderController.list(done: Option[Boolean], table: Option[Int], bio: Option[String])
 POST /order/submit controllers.OrderController.submit()
 
 GET /   controllers.ViewController.index
