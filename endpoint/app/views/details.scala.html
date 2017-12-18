@@ -1,0 +1,82 @@
+@(table: Int)
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Masa @table</title>
+        <link rel="stylesheet" href="@routes.Assets.versioned("css/main.css")" />
+        <link rel="stylesheet" href="@routes.Assets.versioned("css/font-awesome-4.7.0/css/font-awesome.min.css")">
+        <script type="text/javascript" src="@routes.Assets.versioned("js/details.js")"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div class="orders">
+                <table>
+                    <tr>
+                        <th>Seç</th>
+                        <th>Sipariş No</th>
+                        <th>Ürün Adı</th>
+                        <th>Not</th>
+                        <th>Fiyat</th>
+                        <th>İşlem</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>1</td>
+                        <td>Karışık Tost</td>
+                        <td>İçerisinde turşu olmasın.</td>
+                        <td>7.00 TL</td>
+                        <td>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="clients">
+                <div class="person">
+                    <div style="float: right">
+                        <div class="photos">
+                            <image 
+                                src="https://scontent.fsaw1-8.fna.fbcdn.net/v/t1.0-9/13962706_1575649786075371_338557857667273590_n.jpg?oh=32f0786eb3d4d198e9959cc448c7ee2a&oe=5ABAB9F8"
+                                title="Client Photo"
+                            />
+                            <image 
+                                src="https://scontent.fsaw1-8.fna.fbcdn.net/v/t1.0-9/13962706_1575649786075371_338557857667273590_n.jpg?oh=32f0786eb3d4d198e9959cc448c7ee2a&oe=5ABAB9F8"
+                                title="Client Photo"
+                            />
+                            <image 
+                                src="https://scontent.fsaw1-8.fna.fbcdn.net/v/t1.0-9/13962706_1575649786075371_338557857667273590_n.jpg?oh=32f0786eb3d4d198e9959cc448c7ee2a&oe=5ABAB9F8"
+                                title="Client Photo"
+                            />
+                            <image 
+                                src="https://scontent.fsaw1-8.fna.fbcdn.net/v/t1.0-9/13962706_1575649786075371_338557857667273590_n.jpg?oh=32f0786eb3d4d198e9959cc448c7ee2a&oe=5ABAB9F8"
+                                title="Client Photo"
+                            />
+                        </div>
+                        <div class="name">Kişi 1</div>
+                    </div>
+                    <div class="info">
+                        <span>İlk görülme: 11.10.2017</span>
+                    </div>
+                    <div class="history">
+                        <span>Sipariş Geçmişi</span>
+                        <table>
+                                <tr>
+                                    <th>Ürün Adı</th>
+                                    <th>Not</th>
+                                    <th>Adet</th>
+                                </tr>
+                                <tr>
+                                    <td>Karışık Tost</td>
+                                    <td>İçerisinde turşu olmasın.</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,140 @@
+body {
+    margin: 0
+}
+
+#container {
+    padding: 30px;
+}
+
+.client {
+    float: left;
+    width: 250px;
+    height: 150px;
+    color: white;
+    background: lime;
+    border-radius: 0px 0px 5px 5px;
+    margin: 0px 25px 60px 0px;
+    cursor: pointer;
+}
+
+.client.empty {
+    color: white;
+    background: lime;
+}
+
+.client.active {
+    color: white;
+    background: orangered;
+}
+
+.client .photos {
+    float: left;
+    width: 60%;
+    height: inherit;
+}
+
+.client .photo {
+    float: left;
+    width: calc(100% - 6px);
+    height: 130px;
+    padding: 10px;
+}
+
+.client .photo img {
+    width: inherit;
+    height: inherit;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px black;
+}
+
+.client .table-number {
+    float: right;
+    width: 40%;
+    height: inherit;
+    font-size: 90px;
+    line-height: 150px;
+    text-align: center;
+}
+
+.client .table-status {
+    clear: both;
+    width: auto;
+    color: #333;
+    font-size: 15px;
+    line-height: 15px;
+    background: lightgreen;
+    border-top: 1px solid #EEE;
+    border-radius: 0px 0px 5px 5px;
+    padding: 10px;
+}
+
+.table-status.waiting {
+
+}
+
+.orders {
+    float: left;
+    width: 50%;
+}
+
+.orders table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.orders table tr {
+    color: #EEE;
+    background: #333;
+}
+
+.orders tr:nth-child(odd) {
+    color: #333;
+    background: #EEE;
+}
+
+.orders td, th {
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+}
+
+.orders td i {
+    font-size: 20px;
+}
+
+.orders td i:first-child {
+    margin-right: 10px;
+}
+
+.clients {
+    float: left;
+    width: 50%;
+}
+
+.clients .person {
+
+}
+
+.clients .person .name {
+    color: #000;
+    font-size: 30px;
+    font-family: Arial;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.clients .person .photos {
+    float: right;
+    width: 150px;
+    border: 1px solid #EEE;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.clients .person .photos img {
+    float: left;
+    width: calc(50% - 10px);
+    height: calc(50% - 10px);
+    margin: 5px;
+}
