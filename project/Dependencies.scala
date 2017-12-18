@@ -12,7 +12,8 @@ object Dependencies{
   val play2ReactiveMongoVersion = "0.12.7-play26"
 
   val mongoStoreDependencies = Seq(
-    "org.reactivemongo" %% "play2-reactivemongo" % play2ReactiveMongoVersion
+    "org.reactivemongo" %% "play2-reactivemongo" % play2ReactiveMongoVersion,
+    "com.typesafe.play" %% "play-json" % playJsonVersion
   )
 
   val endpointDependencies = Seq(

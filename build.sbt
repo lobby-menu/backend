@@ -1,27 +1,37 @@
 import Dependencies._
 import Common._
 
+organization in ThisBuild := "org.tubit"
+name := "products"
 lazy val resolversSettings = resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
 
 lazy val root = project.in(file("."))
-    .settings(commonSettings)
+    .settings(commonSettings: _*)
     .settings(
       name := "products",
       version := "0.1"
     )
-    .aggregate(core, mongoStore, endpoint)
+    .aggregate(common, mongodbStore, endpoint)
 
-lazy val core = project.in(file("core"))
-    .settings(commonSettings)
+lazy val common = project
+    .settings(commonSettings: _*)
+    .settings(
+      name := "common",
+      scalaSource in Compile := baseDirectory.value / "src"
+    )
 
-lazy val mongoStore = project.in(file("mongodb-store"))
-    .settings(commonSettings)
+lazy val mongodbStore = project
+    .settings(commonSettings: _*)
     .settings(libraryDependencies ++= mongoStoreDependencies)
-    .dependsOn(core)
+    .settings(
+      name := "mongodbStore",
+      scalaSource in Compile := baseDirectory.value / "src"
+    )
+    .dependsOn(common)
 
-lazy val endpoint = project.in(file("endpoint"))
+lazy val endpoint = project
     .enablePlugins(PlayScala)
-    .settings(commonSettings)
+    .settings(commonSettings: _*)
     .settings(
       routesGenerator := InjectedRoutesGenerator
     )
@@ -31,4 +41,4 @@ lazy val endpoint = project.in(file("endpoint"))
     )
     .settings(resolversSettings)
     .settings(libraryDependencies ++= endpointDependencies)
-    .dependsOn(core, mongoStore)
+    .dependsOn(common, mongodbStore)
