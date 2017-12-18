@@ -6,4 +6,4 @@ package org.tubit.lobby.products
   * @param imagePath the path of the product image.
   * @param categories the categories the product has
   */
-case class Product(id: Option[String], name: String, imagePath: String, categories: Seq[Category])
+case class Product(id: Option[String], name: String, imagePath: Option[String], price: Double, categories: Seq[Category])
