@@ -2,15 +2,26 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+ + nocsrf
 GET     /category/list    controllers.CategoryController.list
+ + nocsrf
 GET     /product/list  controllers.ProductController.list(category: Option[String])
 
+ + nocsrf
 GET /order/list controllers.OrderController.list(done: Option[Boolean], table: Option[Int], bio: Option[String])
+ + nocsrf
 POST /order/submit controllers.OrderController.submit()
+ + nocsrf
 POST /order/done    controllers.OrderController.done()
+ + nocsrf
+GET /order/print controllers.OrderController.print(orderId: String)
+ + nocsrf
+GET /order/:orderId controllers.OrderController.detail(orderId: String)
 
+ + nocsrf
 GET /   controllers.ViewController.index
+ + nocsrf
 GET /details    controllers.ViewController.details(table: Int)
 
-# Map static resources from2dd the /public folder to the /assets URL path
+# Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -113,7 +113,10 @@ body {
 }
 
 .clients .person {
-
+    float: left;
+    width: 100%;
+    margin-left: 30px;
+    clear: both;
 }
 
 .clients .person .name {
@@ -125,7 +128,6 @@ body {
 }
 
 .clients .person .photos {
-    float: right;
     width: 150px;
     border: 1px solid #EEE;
     padding: 5px;

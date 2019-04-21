@@ -4,8 +4,19 @@ const options = {
   }
 };
 
-function createTableDiv({ face, table, done }){
+function openInNewTab(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
+
+function hello(orderId) {
+  openInNewTab(`order/print?orderId=${orderId}`);
+}
+
+function createTableDiv({ face, orderId, table, done }){
+  console.log();
   const html = `
+    <a href="${"/details?table=" + table}"
     <div class="client ${done ? "active" : ""}">
         <div class="photos">
             <div class="photo">
@@ -18,11 +29,11 @@ function createTableDiv({ face, table, done }){
         <div class="table-number">${table}</div>
         <div class="table-status">Durum: ${done ? "Sipariş servis edildi" : "Sipariş bekliyor."}</div>
     </div>
+    </a>
   `;
 
-  const a = document.createElement("a");
-  a.href = "/details?table=" + table;
-  a.innerHTML = html;
+  const a = document.createElement("div");
+  a.innerHTML = html + `<div><button onclick="hello('${orderId}')">Adisyon</button></div>`;
   return a;
 }
 
@@ -48,7 +59,7 @@ function parseTime(dateStr){
 
 function mergePersonAndOrder(person, order){
   const face = person.faces.sort((a, b) => parseTime(b['creation_date']) - parseTime(a['creation_date']))[0];
-  return { face: face.accessible_url, table: order.table, done: order.done };
+  return { face: face.accessible_url, table: order.table, orderId: order.id, done: order.done };
 }
 
 function singlifyOrders(orders){

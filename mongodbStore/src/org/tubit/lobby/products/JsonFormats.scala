@@ -4,13 +4,15 @@ object JsonFormats {
   import play.api.libs.json._
 
   implicit object CategoryWrites extends OWrites[Category]{
-    override def writes(category: Category): JsObject =
-      category.id.map{ id =>
-        Json.obj("id" -> id )
-      }.getOrElse(Json.obj()) ++ Json.obj(
-        "name" -> category.name,
-        "image_path" -> category.imagePath
-      )
+    override def writes(category: Category): JsObject = (
+      category.id
+        .map{ id => Json.obj("id" -> id ) }
+        .getOrElse(Json.obj())
+        ++ Json.obj(
+          "name" -> category.name,
+          "image_path" -> category.imagePath
+        )
+    )
   }
 
   implicit object CategoryReads extends Reads[Category]{
@@ -36,7 +38,7 @@ object JsonFormats {
         val count = (obj \ "count").as[Int]
         val product = (obj \ "item").as[String]
 
-        JsSuccess(SingleBuy(count, Product(Some(product), "", None, 0, Seq.empty)))
+        JsSuccess(SingleBuy(count, Product(Some(product), "", None, 0, Seq.empty, None)))
       }catch{
         case cause : Throwable => JsError(cause.getMessage)
       }
@@ -93,6 +95,9 @@ object JsonFormats {
       product.id.map{ id =>
         Json.obj("id" -> id )
       }.getOrElse(Json.obj()) ++
+      product.description.map{ description =>
+        Json.obj("description" -> description)
+      }.getOrElse(Json.obj()) ++
       product.imagePath.map{ imagePath =>
         Json.obj("image_path" -> product.imagePath)
       }.getOrElse(Json.obj()) ++ Json.obj(
@@ -110,8 +115,9 @@ object JsonFormats {
         val imagePath = (obj \ "image_path").asOpt[String]
         val categories = (obj \ "categories").as[Seq[String]]
         val price = (obj \ "price").as[Double]
+        val description = (obj \ "description").asOpt[String]
 
-        JsSuccess(Product(id, name, imagePath, price, categories.map{ name => Category(None, name, "")}))
+        JsSuccess(Product(id, name, imagePath, price, categories.map{ name => Category(None, name, "")}, description))
       } catch {
         case cause: Throwable => JsError(cause.getMessage)
       }

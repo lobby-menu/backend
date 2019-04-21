@@ -31,7 +31,7 @@ function parseTime(dateStr){
 }
 
 function fetchOrders(table, done=false, bio=null){
-  return fetch(`/order/list?table=${table}&done=${done}${bio != null ? "&bio=" + bio : ""}`)
+  return fetch(`/order/list?${table ? "table=" + table : ""}&done=${done}${bio != null ? "&bio=" + bio : ""}`)
     .then(res => res.json())
 }
 
@@ -99,7 +99,7 @@ function createAvatar(idx, mergedOrders, faces){
   const items = mergedOrders.map(({ count, name }) => `<tr><td>${name}</td><td>${count}</td></tr>`).join("\n");
 
   const html = `
-        <div style="float: right">
+        <div style="float: right;">
             <div class="photos">
                 ${photoSources}
             </div>
@@ -171,7 +171,7 @@ function init(){
     }, []);
 
     Promise.all(
-      people.map(person => Promise.all([fetchOrders(table, true, person), getPersonForBioID(person)]))
+      people.map(person => Promise.all([fetchOrders(null, true, person), getPersonForBioID(person)]))
     ).then(personsData => {
       personsData.forEach(([ orders, faceData ], idx) => {
         console.log(orders);
